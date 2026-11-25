@@ -79,7 +79,11 @@ export default function FindUnique() {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('findUnique.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('findUnique.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

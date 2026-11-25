@@ -142,7 +142,9 @@ export default function ConvertUnixToDate({ title }: ToolComponentProps) {
       title={title}
       input={input}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
-      resultComponent={<ToolTextResult value={result} />}
+      resultComponent={
+        <ToolTextResult value={result} onClear={() => setResult('')} />
+      }
       initialValues={initialValues}
       exampleCards={exampleCards}
       getGroups={getGroups}

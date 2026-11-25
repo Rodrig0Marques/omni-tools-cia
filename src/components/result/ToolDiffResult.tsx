@@ -7,6 +7,7 @@ import { globalInputHeight } from '../../config/uiConfig';
 import { useTranslation } from 'react-i18next';
 import { stripAndDecodeHtml } from 'utils/string';
 import DOMPurify from 'dompurify';
+import { downloadBlob } from '@utils/download';
 
 const DOMPURIFY_CONFIG = {
   ALLOWED_TAGS: ['div', 'span', 'br'],
@@ -17,11 +18,13 @@ export default function ToolDiffResult({
   title = 'Differences',
   value,
   loading,
+  onClear,
   isHtml = false
 }: {
   title?: string;
   value: string;
   loading?: boolean;
+  onClear?: () => void;
   isHtml?: boolean;
 }) {
   const theme = useTheme();
@@ -41,14 +44,7 @@ export default function ToolDiffResult({
   const handleDownload = () => {
     const mimeType = isHtml ? 'text/html' : 'text/plain';
     const blob = new Blob([value], { type: mimeType });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = isHtml ? 'diff-output.html' : 'diff-output.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => window.URL.revokeObjectURL(url), 100);
+    downloadBlob(blob, isHtml ? 'diff-output.html' : 'diff-output.txt');
   };
 
   const sharedBoxSx = {
@@ -107,7 +103,12 @@ export default function ToolDiffResult({
       ) : (
         <Box sx={sharedBoxSx}>{value}</Box>
       )}
-      <ResultFooter handleCopy={handleCopy} handleDownload={handleDownload} />
+      <ResultFooter
+        handleCopy={handleCopy}
+        handleDownload={handleDownload}
+        handleClear={onClear}
+        disabled={!value || loading}
+      />
     </Box>
   );
 }

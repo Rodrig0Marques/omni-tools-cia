@@ -200,7 +200,11 @@ export default function Duplicate({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('duplicate.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('duplicate.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={getGroups}

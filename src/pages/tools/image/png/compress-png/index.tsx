@@ -67,6 +67,7 @@ export default function ChangeColorsInPng({ title }: ToolComponentProps) {
         <ToolFileResult
           title={'Compressed PNG'}
           value={result}
+          onClear={() => setResult(null)}
           extension={'png'}
         />
       }

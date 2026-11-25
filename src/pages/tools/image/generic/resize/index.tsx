@@ -216,6 +216,10 @@ export default function ResizeImage({ title }: ToolComponentProps) {
           <ToolMultiFileResult
             title={t('resize.resultTitle')}
             value={results}
+            onClear={() => {
+              setResults([]);
+              setZipFile(null);
+            }}
             zipFile={zipFile}
             loading={isProcessing}
           />
@@ -223,6 +227,10 @@ export default function ResizeImage({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('resize.resultTitle')}
             value={results[0] ?? null}
+            onClear={() => {
+              setResults([]);
+              setZipFile(null);
+            }}
             extension={results[0]?.name.split('.').pop() || 'png'}
           />
         )

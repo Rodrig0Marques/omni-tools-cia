@@ -122,6 +122,7 @@ export default function RotateImage({ title }: ToolComponentProps) {
       resultComponent={
         <ToolFileResult
           value={result}
+          onClear={() => setResult(null)}
           title={'Rotated Image'}
           extension={input?.name.split('.').pop() || 'png'}
         />

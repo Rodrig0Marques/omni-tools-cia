@@ -85,6 +85,7 @@ export default function ExtractAudio({
           <ToolFileResult
             title={t('extractAudio.resultTitle')}
             value={audioFile}
+            onClear={() => setAudioFile(null)}
           />
         )
       }

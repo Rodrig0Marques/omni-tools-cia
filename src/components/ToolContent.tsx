@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 import { Formik, FormikValues, useFormikContext } from 'formik';
 import ToolOptions, { GetGroupsType } from '@components/options/ToolOptions';
@@ -23,15 +23,28 @@ const FormikListenerComponent = <T,>({
 }) => {
   const { values } = useFormikContext<T>();
   const { showSnackBar } = useContext(CustomSnackBarContext);
+  const callbacks = useRef({ compute, showSnackBar });
+  callbacks.current = { compute, showSnackBar };
 
   React.useEffect(() => {
+    let active = true;
+    const handleError = (exception: unknown) => {
+      if (!active) return;
+      if (exception instanceof Error) {
+        callbacks.current.showSnackBar(exception.message, 'error');
+      } else console.error(exception);
+    };
     try {
-      compute(values, input);
+      Promise.resolve(callbacks.current.compute(values, input)).catch(
+        handleError
+      );
     } catch (exception: unknown) {
-      if (exception instanceof Error) showSnackBar(exception.message, 'error');
-      else console.error(exception);
+      handleError(exception);
     }
-  }, [values, input, showSnackBar]);
+    return () => {
+      active = false;
+    };
+  }, [values, input]);
 
   useEffect(() => {
     onValuesChange?.(values);

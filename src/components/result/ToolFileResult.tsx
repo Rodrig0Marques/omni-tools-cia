@@ -1,52 +1,43 @@
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import InputHeader from '../InputHeader';
 import greyPattern from '@assets/grey-pattern.png';
 import { globalInputHeight } from '../../config/uiConfig';
 import ResultFooter from './ResultFooter';
 import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
 import { useTranslation } from 'react-i18next';
+import useObjectUrl from '../../hooks/useObjectUrl';
+import { downloadBlob } from '@utils/download';
 
 export default function ToolFileResult({
   title = 'Result',
   value,
   extension,
+  onClear,
   loading,
   loadingText
 }: {
   title?: string;
   value: File | null;
   extension?: string;
+  onClear?: () => void;
   loading?: boolean;
   loadingText?: string;
 }) {
   const { t } = useTranslation();
-  const [preview, setPreview] = React.useState<string | null>(null);
+  const preview = useObjectUrl(value);
   const { showSnackBar } = useContext(CustomSnackBarContext);
   const theme = useTheme();
 
-  React.useEffect(() => {
+  const handleCopy = async () => {
     if (value) {
-      const objectUrl = URL.createObjectURL(value);
-      setPreview(objectUrl);
-
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setPreview(null);
-    }
-  }, [value]);
-
-  const handleCopy = () => {
-    if (value) {
-      const blob = new Blob([value], { type: value.type });
-      const clipboardItem = new ClipboardItem({ [value.type]: blob });
-
-      navigator.clipboard
-        .write([clipboardItem])
-        .then(() => showSnackBar(t('toolFileResult.copied'), 'success'))
-        .catch((err) => {
-          showSnackBar(t('toolFileResult.copyFailed', { error: err }), 'error');
-        });
+      try {
+        const clipboardItem = new ClipboardItem({ [value.type]: value });
+        await navigator.clipboard.write([clipboardItem]);
+        showSnackBar(t('toolFileResult.copied'), 'success');
+      } catch (err) {
+        showSnackBar(t('toolFileResult.copyFailed', { error: err }), 'error');
+      }
     }
   };
 
@@ -66,15 +57,7 @@ export default function ToolFileResult({
           filename = `${filename}.${extension}`;
         }
       }
-      const blob = new Blob([value], { type: value.type });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+      downloadBlob(value, filename);
     }
   };
 
@@ -136,6 +119,7 @@ export default function ToolFileResult({
                 <img
                   src={preview}
                   alt="Result"
+                  decoding="async"
                   style={{ maxWidth: '100%', maxHeight: globalInputHeight }}
                 />
               )}
@@ -155,6 +139,7 @@ export default function ToolFileResult({
               )}
               {fileType === 'pdf' && (
                 <iframe
+                  title={title || t('toolFileResult.result')}
                   src={preview}
                   width="100%"
                   height="100%"
@@ -172,7 +157,8 @@ export default function ToolFileResult({
         )}
       </Box>
       <ResultFooter
-        disabled={!value}
+        disabled={!value || loading}
+        handleClear={onClear}
         handleCopy={handleCopy}
         handleDownload={handleDownload}
         hideCopy={

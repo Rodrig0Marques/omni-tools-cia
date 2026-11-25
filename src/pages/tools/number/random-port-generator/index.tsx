@@ -219,6 +219,10 @@ export default function RandomPortGenerator({
             <ToolTextResult
               title={t('randomPortGenerator.result.title')}
               value={formattedResult}
+              onClear={() => {
+                setFormattedResult('');
+                setResult(null);
+              }}
             />
           )}
         </Box>

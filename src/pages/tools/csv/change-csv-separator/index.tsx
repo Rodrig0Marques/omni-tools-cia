@@ -201,7 +201,13 @@ export default function ChangeCsvDelimiter({
       inputComponent={
         <ToolTextInput title={'Input CSV'} value={input} onChange={setInput} />
       }
-      resultComponent={<ToolTextResult title={'Output CSV'} value={result} />}
+      resultComponent={
+        <ToolTextResult
+          title={'Output CSV'}
+          value={result}
+          onClear={() => setResult('')}
+        />
+      }
       initialValues={initialValues}
       exampleCards={exampleCards}
       getGroups={getGroups}

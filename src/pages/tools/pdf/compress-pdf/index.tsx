@@ -164,6 +164,7 @@ export default function CompressPdf({
         <ToolFileResult
           title={t('compressPdf.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension={'pdf'}
           loading={isProcessing}
           loadingText={t('compressPdf.compressingPdf')}

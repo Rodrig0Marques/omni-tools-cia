@@ -85,7 +85,11 @@ export default function SlugGenerator({
         />
       }
       resultComponent={
-        <ToolTextResult value={result} title={t('slugGenerator.resultTitle')} />
+        <ToolTextResult
+          value={result}
+          onClear={() => setResult('')}
+          title={t('slugGenerator.resultTitle')}
+        />
       }
       initialValues={initialValues}
       exampleCards={exampleCards}

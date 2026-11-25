@@ -87,6 +87,7 @@ export default function FindMostPopular({ title }: ToolComponentProps) {
         <ToolTextResult
           title={t('findMostPopular.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
         />
       }
       initialValues={initialValues}

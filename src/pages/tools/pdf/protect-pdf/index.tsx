@@ -76,6 +76,7 @@ export default function ProtectPdf({
         <ToolFileResult
           title={'Protected PDF'}
           value={result}
+          onClear={() => setResult(null)}
           extension={'pdf'}
           loading={isProcessing}
           loadingText={'Protecting PDF'}

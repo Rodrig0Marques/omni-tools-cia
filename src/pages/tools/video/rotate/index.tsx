@@ -98,6 +98,7 @@ export default function RotateVideo({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('rotate.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension={'mp4'}
           />
         )

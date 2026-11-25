@@ -194,7 +194,13 @@ export default function Unwrap({ title }: ToolComponentProps) {
       inputComponent={
         <ToolTextInput title="Input List" value={input} onChange={setInput} />
       }
-      resultComponent={<ToolTextResult title="Unwrapped List" value={result} />}
+      resultComponent={
+        <ToolTextResult
+          title="Unwrapped List"
+          value={result}
+          onClear={() => setResult('')}
+        />
+      }
       initialValues={initialValues}
       getGroups={getGroups}
       validationSchema={validationSchema}

@@ -50,7 +50,11 @@ export default function Rot13({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('rot13.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('rot13.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={null}

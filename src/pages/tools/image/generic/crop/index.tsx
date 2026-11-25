@@ -225,7 +225,11 @@ export default function CropImage({ title }: ToolComponentProps) {
       validationSchema={validationSchema}
       renderCustomInput={renderCustomInput}
       resultComponent={
-        <ToolFileResult title={'Cropped image'} value={result} />
+        <ToolFileResult
+          title={'Cropped image'}
+          value={result}
+          onClear={() => setResult(null)}
+        />
       }
       toolInfo={{
         title: 'Crop Image',

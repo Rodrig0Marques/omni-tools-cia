@@ -285,7 +285,9 @@ export default function CsvToTsv({
       title={title}
       input={input}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
-      resultComponent={<ToolTextResult value={result} />}
+      resultComponent={
+        <ToolTextResult value={result} onClear={() => setResult('')} />
+      }
       initialValues={initialValues}
       getGroups={getGroups}
       setInput={setInput}

@@ -291,7 +291,11 @@ export default function Truncate({
         />
       }
       resultComponent={
-        <ToolTextResult title={t('statistic.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('statistic.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{
         title: t('statistic.toolInfo.title', { title }),

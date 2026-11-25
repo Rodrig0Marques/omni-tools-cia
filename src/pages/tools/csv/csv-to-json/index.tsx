@@ -160,6 +160,7 @@ export default function CsvToJson({ title }: ToolComponentProps) {
         <ToolTextResult
           title={t('csvToJson.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
           extension={'json'}
         />
       }

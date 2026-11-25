@@ -139,7 +139,11 @@ export default function Quote({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('quote.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('quote.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={getGroups}

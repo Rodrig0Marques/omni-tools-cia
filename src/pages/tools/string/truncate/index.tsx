@@ -164,7 +164,11 @@ export default function Truncate({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('truncate.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('truncate.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{
         title: t('truncate.toolInfo.title'),

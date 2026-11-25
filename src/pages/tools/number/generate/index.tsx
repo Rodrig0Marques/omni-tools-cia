@@ -73,7 +73,11 @@ export default function GenerateNumbers({ title }: ToolComponentProps) {
       ]}
       compute={compute}
       resultComponent={
-        <ToolTextResult title={t('generate.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('generate.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
     />
   );

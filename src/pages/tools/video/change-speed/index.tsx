@@ -165,6 +165,7 @@ export default function ChangeSpeed({
           <ToolFileResult
             title={t('changeSpeed.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension="mp4"
           />
         )

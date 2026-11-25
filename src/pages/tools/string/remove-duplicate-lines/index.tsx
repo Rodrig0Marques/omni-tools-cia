@@ -187,7 +187,11 @@ export default function RemoveDuplicateLines({ title }: ToolComponentProps) {
       input={input}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
       resultComponent={
-        <ToolTextResult title={'Text without duplicates'} value={result} />
+        <ToolTextResult
+          title={'Text without duplicates'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={({ values, updateField }) => [

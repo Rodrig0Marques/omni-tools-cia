@@ -83,6 +83,11 @@ export default function CompressImage({ title }: ToolComponentProps) {
           <ToolMultiFileResult
             title={t('compress.resultTitle')}
             value={results}
+            onClear={() => {
+              setResults([]);
+              setZipFile(null);
+              setCompressedSize(null);
+            }}
             zipFile={zipFile}
             loading={isProcessing}
           />
@@ -90,6 +95,11 @@ export default function CompressImage({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('compress.resultTitle')}
             value={results[0] ?? null}
+            onClear={() => {
+              setResults([]);
+              setZipFile(null);
+              setCompressedSize(null);
+            }}
             extension={results[0]?.name.split('.').pop() || 'png'}
           />
         )

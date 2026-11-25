@@ -111,7 +111,12 @@ export default function StringifyJson({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title="JSON String" value={result} extension={'json'} />
+        <ToolTextResult
+          title="JSON String"
+          value={result}
+          onClear={() => setResult('')}
+          extension={'json'}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

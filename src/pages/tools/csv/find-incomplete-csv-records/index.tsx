@@ -200,6 +200,7 @@ export default function FindIncompleteCsvRecords({
         <ToolTextResult
           title={t('findIncompleteCsvRecords.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
         />
       }
       initialValues={initialValues}

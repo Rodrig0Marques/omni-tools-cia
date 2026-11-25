@@ -108,7 +108,9 @@ export default function HiddenCharacterDetector({
           )}
         </Box>
       }
-      resultComponent={<ToolTextResult value={result} />}
+      resultComponent={
+        <ToolTextResult value={result} onClear={() => setResult('')} />
+      }
       initialValues={initialValues}
       getGroups={null}
       compute={compute}

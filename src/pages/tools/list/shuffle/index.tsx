@@ -66,7 +66,11 @@ export default function Shuffle() {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('shuffle.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('shuffle.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

@@ -186,6 +186,10 @@ export default function RandomNumberGenerator({
             <ToolTextResult
               title={t('randomNumberGenerator.result.title')}
               value={formattedResult}
+              onClear={() => {
+                setFormattedResult('');
+                setResult(null);
+              }}
             />
           )}
         </Box>

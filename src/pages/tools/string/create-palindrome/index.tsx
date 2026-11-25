@@ -101,7 +101,11 @@ export default function CreatePalindrome({
         <ToolTextInput title={'Input text'} value={input} onChange={setInput} />
       }
       resultComponent={
-        <ToolTextResult title={'Palindrome text'} value={result} />
+        <ToolTextResult
+          title={'Palindrome text'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{
         title: 'What Is a String Palindrome Creator?',

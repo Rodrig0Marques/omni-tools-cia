@@ -106,7 +106,12 @@ export default function ConvertJgpToPng({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolFileResult title={'Output PNG'} value={result} extension={'png'} />
+        <ToolFileResult
+          title={'Output PNG'}
+          value={result}
+          onClear={() => setResult(null)}
+          extension={'png'}
+        />
       }
       initialValues={initialValues}
       getGroups={({ values, updateField }) => [

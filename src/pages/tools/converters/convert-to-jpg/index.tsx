@@ -85,6 +85,10 @@ export default function ConvertToJpg({ title }: ToolComponentProps) {
           <ToolMultiFileResult
             title={t('convertToJPG.resultTitle')}
             value={results}
+            onClear={() => {
+              setResults([]);
+              setZipFile(null);
+            }}
             zipFile={zipFile}
             loading={isProcessing}
           />
@@ -92,6 +96,10 @@ export default function ConvertToJpg({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('convertToJPG.resultTitle')}
             value={results[0] ?? null}
+            onClear={() => {
+              setResults([]);
+              setZipFile(null);
+            }}
             extension={results[0]?.name.split('.').pop() || 'jpg'}
           />
         )

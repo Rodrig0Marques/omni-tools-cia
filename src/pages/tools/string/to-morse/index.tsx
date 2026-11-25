@@ -29,7 +29,11 @@ export default function ToMorse() {
       setInput={setInput}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
       resultComponent={
-        <ToolTextResult title={t('toMorse.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('toMorse.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

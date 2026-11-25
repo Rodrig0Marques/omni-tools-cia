@@ -181,7 +181,11 @@ export default function SumNumbers({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('sum.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('sum.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={getGroups}

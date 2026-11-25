@@ -75,6 +75,7 @@ export default function Loop({ title, longDescription }: ToolComponentProps) {
         ) : (
           <ToolFileResult
             value={result}
+            onClear={() => setResult(null)}
             title={t('loop.resultTitle')}
             extension={'mp4'}
           />

@@ -162,6 +162,7 @@ export default function Split({ title, longDescription }: ToolComponentProps) {
           title={t('image:split.resultTitle')}
           extension={'pdf'}
           value={result}
+          onClear={() => setResult(null)}
           loading={isProcessing}
           loadingText={t('image:split.loadingText')}
         />

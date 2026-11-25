@@ -171,6 +171,8 @@
     }
   },
   "resultFooter": {
+    "clear": "Limpar saída",
+    "downloadAll": "Baixar todos como ZIP",
     "copy": "Copiar para a área de transferência",
     "download": "Download"
   },

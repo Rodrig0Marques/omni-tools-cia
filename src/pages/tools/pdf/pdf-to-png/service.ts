@@ -6,7 +6,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 type ImagePreview = {
   blob: Blob;
-  url: string;
   filename: string;
 };
 
@@ -35,8 +34,7 @@ export async function convertPdfToPngImages(pdfFile: File): Promise<{
     );
 
     const filename = `page-${i}.png`;
-    const url = URL.createObjectURL(blob);
-    images.push({ blob, url, filename });
+    images.push({ blob, filename });
     zip.file(filename, blob);
   }
 

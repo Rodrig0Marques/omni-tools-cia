@@ -53,6 +53,7 @@ export default function MergePdf({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('merge.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension={'pdf'}
           loading={isProcessing}
           loadingText={t('merge.loadingText')}

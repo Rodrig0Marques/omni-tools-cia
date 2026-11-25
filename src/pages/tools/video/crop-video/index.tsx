@@ -212,6 +212,7 @@ export default function CropVideo({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('cropVideo.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension={'mp4'}
           />
         )

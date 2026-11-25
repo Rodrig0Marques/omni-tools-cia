@@ -104,6 +104,7 @@ export default function MergeAudio({
           <ToolFileResult
             title={t('mergeAudio.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension={result ? result.name.split('.').pop() : undefined}
           />
         )

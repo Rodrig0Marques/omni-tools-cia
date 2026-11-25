@@ -224,7 +224,12 @@ export default function TsvToJson({
         />
       }
       resultComponent={
-        <ToolTextResult title="Output JSON" value={result} extension={'json'} />
+        <ToolTextResult
+          title="Output JSON"
+          value={result}
+          onClear={() => setResult('')}
+          extension={'json'}
+        />
       }
       toolInfo={{ title: `What is a ${title}?`, description: longDescription }}
     />

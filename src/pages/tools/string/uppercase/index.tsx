@@ -63,7 +63,11 @@ export default function Uppercase({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('uppercase.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('uppercase.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       exampleCards={exampleCards}
     />

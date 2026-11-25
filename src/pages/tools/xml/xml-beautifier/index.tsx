@@ -47,6 +47,7 @@ export default function XmlBeautifier({
         <ToolTextResult
           title={t('xmlBeautifier.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
           extension="xml"
         />
       }

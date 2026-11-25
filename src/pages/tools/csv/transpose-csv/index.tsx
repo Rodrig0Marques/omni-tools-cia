@@ -166,7 +166,13 @@ export default function TransposeCsv({
       inputComponent={
         <ToolTextInput title="Input CSV" value={input} onChange={setInput} />
       }
-      resultComponent={<ToolTextResult title="Transposed CSV" value={result} />}
+      resultComponent={
+        <ToolTextResult
+          title="Transposed CSV"
+          value={result}
+          onClear={() => setResult('')}
+        />
+      }
       initialValues={initialValues}
       exampleCards={exampleCards}
       getGroups={getGroups}

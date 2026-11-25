@@ -166,7 +166,11 @@ export default function ChunkList({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('chunk.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('chunk.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={({ values, updateField }) => [

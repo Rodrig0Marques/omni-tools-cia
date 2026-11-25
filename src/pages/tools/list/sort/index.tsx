@@ -78,7 +78,11 @@ export default function SortList({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('sort.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('sort.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={({ values, updateField }) => [

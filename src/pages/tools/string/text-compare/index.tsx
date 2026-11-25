@@ -75,6 +75,7 @@ export default function TextCompare({ title }: ToolComponentProps) {
       resultComponent={
         <ToolDiffResult
           value={result}
+          onClear={() => setResult('')}
           title={t('textCompare.resultTitle')}
           isHtml
         />

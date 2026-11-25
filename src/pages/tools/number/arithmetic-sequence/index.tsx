@@ -82,6 +82,7 @@ export default function ArithmeticSequence({ title }: ToolComponentProps) {
         <ToolTextResult
           title={t('arithmeticSequence.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
         />
       }
       initialValues={initialValues}

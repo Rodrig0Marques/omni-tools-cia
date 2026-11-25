@@ -80,7 +80,12 @@ export default function CsvToXml({ title }: ToolComponentProps) {
         <ToolTextInput title="Input CSV" value={input} onChange={setInput} />
       }
       resultComponent={
-        <ToolTextResult title="Output XML" value={result} extension={'xml'} />
+        <ToolTextResult
+          title="Output XML"
+          value={result}
+          onClear={() => setResult('')}
+          extension={'xml'}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

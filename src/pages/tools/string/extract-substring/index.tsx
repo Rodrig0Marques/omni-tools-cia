@@ -134,7 +134,11 @@ export default function ExtractSubstring({ title }: ToolComponentProps) {
         <ToolTextInput title={'Input text'} value={input} onChange={setInput} />
       }
       resultComponent={
-        <ToolTextResult title={'Extracted text'} value={result} />
+        <ToolTextResult
+          title={'Extracted text'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       exampleCards={exampleCards}
     />

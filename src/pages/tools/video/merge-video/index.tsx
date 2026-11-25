@@ -59,6 +59,7 @@ export default function MergeVideo({
       resultComponent={
         <ToolFileResult
           value={result}
+          onClear={() => setResult(null)}
           title={loading ? 'Merging Videos...' : 'Merged Video'}
           loading={loading}
           extension={'mp4'}

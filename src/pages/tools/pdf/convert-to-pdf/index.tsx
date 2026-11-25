@@ -177,6 +177,7 @@ export default function ConvertToPdf({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('convertToPdf.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension="pdf"
           loading={isProcessing}
         />

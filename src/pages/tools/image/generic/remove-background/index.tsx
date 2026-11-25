@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import ToolFileResult from '@components/result/ToolFileResult';
 import ToolContent from '@components/ToolContent';
 import { ToolComponentProps } from '@tools/defineTool';
 import ToolImageInput from '@components/input/ToolImageInput';
-import { removeBackground } from '@imgly/background-removal';
-import * as heic2any from 'heic2any';
+import { Alert } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { createBackgroundRemovalProcessor } from './service';
+import type { RemovalProgress } from './types';
 
 const initialValues = {};
 
@@ -17,74 +19,94 @@ export default function RemoveBackgroundFromImage({
   const [input, setInput] = useState<File | null>(null);
   const [result, setResult] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [progress, setProgress] = useState<RemovalProgress | null>(null);
+  const [failed, setFailed] = useState(false);
+  const processor = useRef<ReturnType<
+    typeof createBackgroundRemovalProcessor
+  > | null>(null);
+  const { t } = useTranslation('image');
 
-  const compute = async (_optionsValues: typeof initialValues, input: any) => {
-    if (!input) return;
+  useEffect(() => () => processor.current?.dispose(), []);
 
-    setIsProcessing(true);
-
-    try {
-      let fileToProcess = input;
-      // Check if the file is HEIC (by MIME type or extension)
-      if (
-        input.type === 'image/heic' ||
-        input.name?.toLowerCase().endsWith('.heic')
-      ) {
-        // Convert HEIC to PNG using heic2any
-        const convertedBlob = await heic2any.default({
-          blob: input,
-          toType: 'image/png'
-        });
-        // heic2any returns a Blob or an array of Blobs
-        let pngBlob;
-        if (Array.isArray(convertedBlob)) {
-          pngBlob = convertedBlob[0];
-        } else {
-          pngBlob = convertedBlob;
-        }
-        fileToProcess = new File(
-          [pngBlob],
-          input.name.replace(/\.[^/.]+$/, '') + '.png',
-          { type: 'image/png' }
-        );
-      }
-
-      // Convert the file to a Blob URL
-      const inputUrl = URL.createObjectURL(fileToProcess);
-
-      // Process the image with the background removal library
-      const blob = await removeBackground(inputUrl, {
-        progress: (progress) => {
-          console.log(`Background removal progress: ${progress}`);
-        }
-      });
-
-      // Create a new file from the blob
-      const newFile = new File(
-        [blob],
-        fileToProcess.name.replace(/\.[^/.]+$/, '') + '-no-bg.png',
-        {
-          type: 'image/png'
-        }
-      );
-
-      setResult(newFile);
-    } catch (err) {
-      console.error('Error removing background:', err);
-      throw new Error(
-        'Failed to remove background. Please try a different image or try again later.'
-      );
-    } finally {
-      setIsProcessing(false);
+  useEffect(() => {
+    let active = true;
+    let running = true;
+    setResult(null);
+    setProgress(null);
+    setFailed(false);
+    setIsProcessing(!!input);
+    if (!input) {
+      processor.current?.dispose();
+      return;
     }
+
+    const run = async () => {
+      try {
+        let file = input;
+        if (file.type === 'image/heic' || /\.heic$/i.test(file.name)) {
+          const { default: heic2any } = await import('heic2any');
+          const converted = await heic2any({ blob: file, toType: 'image/png' });
+          const blob = Array.isArray(converted) ? converted[0] : converted;
+          file = new File([blob], file.name.replace(/\.[^/.]+$/, '') + '.png', {
+            type: 'image/png'
+          });
+        }
+        if (!active) return;
+        processor.current ??= createBackgroundRemovalProcessor();
+        const blob = await processor.current.process(file, (value) => {
+          if (active) setProgress(value);
+        });
+        if (active) {
+          setResult(
+            new File(
+              [blob],
+              file.name.replace(/\.[^/.]+$/, '') + '-no-bg.png',
+              {
+                type: 'image/png'
+              }
+            )
+          );
+        }
+      } catch (error) {
+        if (
+          active &&
+          !(error instanceof DOMException && error.name === 'AbortError')
+        ) {
+          console.error('Error removing background:', error);
+          setFailed(true);
+        }
+      } finally {
+        running = false;
+        if (active) setIsProcessing(false);
+      }
+    };
+    void run();
+    return () => {
+      active = false;
+      if (running) processor.current?.dispose();
+    };
+  }, [input]);
+
+  const clearResult = () => {
+    setResult(null);
+    processor.current?.dispose();
   };
+
+  const loadingText = progress?.key.startsWith('fetch:')
+    ? t('removeBackground.downloading', {
+        percent:
+          progress.total > 0
+            ? Math.round((progress.current / progress.total) * 100)
+            : 0
+      })
+    : t('removeBackground.processing');
 
   return (
     <ToolContent
       title={title}
       initialValues={initialValues}
       getGroups={null}
-      compute={compute}
+      compute={() => {}}
       input={input}
       validationSchema={validationSchema}
       inputComponent={
@@ -92,17 +114,25 @@ export default function RemoveBackgroundFromImage({
           value={input}
           onChange={setInput}
           accept={['image/*']}
-          title={'Input Image'}
+          title={t('removeBackground.inputTitle')}
         />
       }
       resultComponent={
-        <ToolFileResult
-          title={'Transparent PNG'}
-          value={result}
-          extension={'png'}
-          loading={isProcessing}
-          loadingText={'Removing background'}
-        />
+        <>
+          {failed && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {t('removeBackground.failed')}
+            </Alert>
+          )}
+          <ToolFileResult
+            title={t('removeBackground.resultTitle')}
+            value={result}
+            onClear={clearResult}
+            extension={'png'}
+            loading={isProcessing}
+            loadingText={loadingText}
+          />
+        </>
       }
       toolInfo={{
         title: 'Remove Background from Image',

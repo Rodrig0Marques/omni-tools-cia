@@ -86,7 +86,11 @@ export default function EncodeString({
         />
       }
       resultComponent={
-        <ToolTextResult title={t('urlEncode.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('urlEncode.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{
         title: t('urlEncode.toolInfo.title', { title }),

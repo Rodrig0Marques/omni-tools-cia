@@ -135,7 +135,11 @@ export default function Replacer({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('textReplacer.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('textReplacer.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{
         title: t('textReplacer.toolInfo.title'),

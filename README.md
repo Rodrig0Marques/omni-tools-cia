@@ -98,6 +98,12 @@ Use **Save configuration** in a tool's options to name and save its settings. Se
 
 Configurations stay in the current browser and are separate for each tool. Uploaded files, source text, QR code contents, and passwords are not saved.
 
+### Clearing results and downloading files
+
+Use **Clear output** below a result to clear its text, file previews, or batch ZIP while keeping the input and options. Edit the input/options or import a file again to generate a new result. Downloads already started continue after the preview is cleared.
+
+Background removal runs in a dedicated worker so the interface remains responsive during image processing. The first run downloads the model and runtime; a progress message is shown while these resources load. Replacing or clearing the input cancels an active job, and clearing its output or leaving the tool releases the worker.
+
 ## Self-host/Run
 
 ### Docker
@@ -115,8 +121,7 @@ services:
     container_name: omni-tools
     restart: unless-stopped
     ports:
-      - "8080:80"
-
+      - '8080:80'
 ```
 
 ## Contribute
@@ -161,6 +166,7 @@ npm run test:e2e
 ```
 
 ### i18n (Translations)
+
 The translation files are [here](public/locales). Only edit these if you are a developer. For non developers, use [Locize](https://www.locize.app/register?invitation=YOIH0Dyz3KHh3uQFCGYe9v1QOUoq8W5ySgmlwjX9cSypeJmt8F40brDtVbXb71fK).
 
 <img src="https://api.star-history.com/svg?repos=iib0011/omni-tools&type=Date"/>
@@ -175,9 +181,10 @@ We welcome contributions! You can help by:
 - Improving documentation
 - Submitting pull requests
 
-
 You can also join our [Discord server](https://discord.gg/SDbbn3hT4b)
+
 ## 🧡 Sponsors
+
 <div align="center">
   <a href="https://www.locize.com/" target="_blank">
     <img src="docs-images/locizeSponsor.svg" alt="Locize" width="200"/>

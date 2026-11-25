@@ -130,6 +130,7 @@ export default function SplitPdf({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('splitPdf.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension={'pdf'}
           loading={isProcessing}
           loadingText={t('splitPdf.extractingPages')}

@@ -147,6 +147,7 @@ export default function ChangeColorsInImage({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('changeColors.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           loading={isProcessing}
         />
       }

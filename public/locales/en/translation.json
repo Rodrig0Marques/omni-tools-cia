@@ -183,6 +183,8 @@
     }
   },
   "resultFooter": {
+    "clear": "Clear output",
+    "downloadAll": "Download all as ZIP",
     "copy": "Copy to clipboard",
     "download": "Download"
   },

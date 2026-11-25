@@ -102,7 +102,11 @@ export default function ChangeOpacity({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolFileResult title={'Changed image'} value={result} />
+        <ToolFileResult
+          title={'Changed image'}
+          value={result}
+          onClear={() => setResult(null)}
+        />
       }
       initialValues={initialValues}
       // exampleCards={exampleCards}

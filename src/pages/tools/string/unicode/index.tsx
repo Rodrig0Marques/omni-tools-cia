@@ -107,7 +107,11 @@ export default function Unicode({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult value={result} title={t('unicode.resultTitle')} />
+        <ToolTextResult
+          value={result}
+          onClear={() => setResult('')}
+          title={t('unicode.resultTitle')}
+        />
       }
       initialValues={initialValues}
       exampleCards={exampleCards}

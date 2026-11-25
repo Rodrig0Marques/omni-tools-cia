@@ -79,6 +79,7 @@ export default function JsonComparison({ title }: ToolComponentProps) {
             <ToolTextResult
               title="Differences"
               value={result}
+              onClear={() => setResult('')}
               extension={'txt'}
             />
           </Grid>

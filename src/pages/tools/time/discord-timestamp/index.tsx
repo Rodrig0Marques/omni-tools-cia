@@ -140,6 +140,7 @@ export default function TruncateClockTime({
         <ToolTextResult
           title={t('discordTimestamp.outputTitle')}
           value={result}
+          onClear={() => setResult('')}
         />
       }
       initialValues={initialValues}

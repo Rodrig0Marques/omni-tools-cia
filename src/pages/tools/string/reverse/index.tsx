@@ -119,7 +119,11 @@ export default function Reverse({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('reverse.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('reverse.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       exampleCards={exampleCards}
     />

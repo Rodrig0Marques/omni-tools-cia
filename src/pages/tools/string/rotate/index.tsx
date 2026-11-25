@@ -121,7 +121,11 @@ export default function Rotate({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('rotate.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('rotate.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={getGroups}

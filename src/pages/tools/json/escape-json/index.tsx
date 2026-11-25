@@ -99,6 +99,7 @@ export default function EscapeJsonTool({
         <ToolTextResult
           title="Escaped JSON"
           value={result}
+          onClear={() => setResult('')}
           keepSpecialCharacters
           extension={'json'}
         />

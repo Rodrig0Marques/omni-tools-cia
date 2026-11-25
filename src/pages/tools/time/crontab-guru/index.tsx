@@ -63,7 +63,9 @@ export default function CrontabGuru({
           placeholder="e.g. 35 16 * * 0-5"
         />
       }
-      resultComponent={<ToolTextResult value={result} />}
+      resultComponent={
+        <ToolTextResult value={result} onClear={() => setResult('')} />
+      }
       initialValues={initialValues}
       exampleCards={exampleCards}
       getGroups={null}

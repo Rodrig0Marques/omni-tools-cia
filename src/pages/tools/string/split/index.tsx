@@ -164,7 +164,11 @@ export default function SplitText({ title }: ToolComponentProps) {
       input={input}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
       resultComponent={
-        <ToolTextResult title={t('split.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('split.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={({ values, updateField }) => [

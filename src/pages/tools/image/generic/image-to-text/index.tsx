@@ -95,6 +95,7 @@ export default function ImageToText({ title }: ToolComponentProps) {
         <ToolTextResult
           title={'Extracted Text'}
           value={result}
+          onClear={() => setResult('')}
           loading={isProcessing}
         />
       }

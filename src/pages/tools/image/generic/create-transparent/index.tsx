@@ -137,6 +137,7 @@ export default function CreateTransparent({ title }: ToolComponentProps) {
         <ToolFileResult
           title={'Transparent PNG'}
           value={result}
+          onClear={() => setResult(null)}
           extension={'png'}
         />
       }

@@ -159,7 +159,11 @@ export default function JoinText({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('join.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('join.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       getGroups={getGroups}
       toolInfo={{

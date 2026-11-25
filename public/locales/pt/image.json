@@ -61,6 +61,11 @@
     "title": "Gerador de código QR"
   },
   "removeBackground": {
+    "inputTitle": "Imagem de entrada",
+    "resultTitle": "PNG transparente",
+    "downloading": "Preparando o processamento: {{percent}}%. O primeiro uso pode demorar mais.",
+    "processing": "Removendo o fundo. Você pode continuar usando a página.",
+    "failed": "Não foi possível remover o fundo. Verifique sua conexão e tente outra imagem.",
     "description": "Remova automaticamente o fundo de uma imagem e mantenha o assunto principal com transparencia.",
     "shortDescription": "Remover fundos de imagens automaticamente",
     "title": "Remover fundo da imagem"

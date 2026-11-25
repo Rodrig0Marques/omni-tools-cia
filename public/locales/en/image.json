@@ -99,6 +99,11 @@
     "title": "QR Code Generator"
   },
   "removeBackground": {
+    "inputTitle": "Input image",
+    "resultTitle": "Transparent PNG",
+    "downloading": "Preparing the image processor: {{percent}}%. The first use may take longer.",
+    "processing": "Removing background. You can continue using the page.",
+    "failed": "Could not remove the background. Check your connection and try another image.",
     "description": "Remove the background from an image to isolate the main subject with transparency.",
     "shortDescription": "Automatically remove backgrounds from images",
     "title": "Remove Background from Image"

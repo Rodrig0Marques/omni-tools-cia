@@ -149,7 +149,11 @@ export default function CensorText({
         <ToolTextInput title={'Input text'} value={input} onChange={setInput} />
       }
       resultComponent={
-        <ToolTextResult title={'Censored text'} value={result} />
+        <ToolTextResult
+          title={'Censored text'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{ title: `What is a ${title}?`, description: longDescription }}
       exampleCards={exampleCards}

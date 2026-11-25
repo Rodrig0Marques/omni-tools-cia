@@ -90,6 +90,10 @@ export default function ConvertToWebp({ title }: ToolComponentProps) {
           <ToolMultiFileResult
             title={t('convertToWebp.resultTitle')}
             value={result}
+            onClear={() => {
+              setResult([]);
+              setZipFile(null);
+            }}
             zipFile={zipFile}
             loading={isProcessing}
           />
@@ -97,6 +101,10 @@ export default function ConvertToWebp({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('convertToWebp.resultTitle')}
             value={result[0] ?? null}
+            onClear={() => {
+              setResult([]);
+              setZipFile(null);
+            }}
             extension={'webp'}
             loading={isProcessing}
           />

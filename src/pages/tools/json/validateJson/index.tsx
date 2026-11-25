@@ -73,7 +73,11 @@ export default function ValidateJson({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('validateJson.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('validateJson.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={{}}
       getGroups={null}

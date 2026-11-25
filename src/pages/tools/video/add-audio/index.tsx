@@ -236,6 +236,7 @@ export default function AddAudio({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('addAudio.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension="mp4"
           loading={loading}
           loadingText={t('addAudio.loadingText')}

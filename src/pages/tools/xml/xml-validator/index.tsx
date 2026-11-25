@@ -51,7 +51,13 @@ export default function XmlValidator({
           placeholder={t('xmlValidator.placeholder')}
         />
       }
-      resultComponent={<ToolTextResult value={result} extension="txt" />}
+      resultComponent={
+        <ToolTextResult
+          value={result}
+          onClear={() => setResult('')}
+          extension="txt"
+        />
+      }
       initialValues={initialValues}
       exampleCards={exampleCards}
       getGroups={null}

@@ -171,6 +171,7 @@ export default function PasswordGenerator({ title }: ToolComponentProps) {
         <ToolTextResult
           title={t('passwordGenerator.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
         />
       }
       toolInfo={{

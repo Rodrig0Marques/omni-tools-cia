@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Alert,
   Box,
@@ -40,6 +40,9 @@ export default function UrlEditor({
   const [inputUrl, setInputUrl] = useState('');
   const [parsedUrl, setParsedUrl] = useState<ParsedUrl | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);
+  const [outputCleared, setOutputCleared] = useState(false);
+
+  useEffect(() => setOutputCleared(false), [parsedUrl]);
 
   let generatedUrl = '';
   let generateError: string | null = null;
@@ -253,7 +256,8 @@ export default function UrlEditor({
       resultComponent={
         <ToolTextResult
           title={t('urlEditor.generatedUrl')}
-          value={generatedUrl}
+          value={outputCleared ? '' : generatedUrl}
+          onClear={() => setOutputCleared(true)}
         />
       }
       toolInfo={{

@@ -48,6 +48,7 @@ export default function BaseFileInput({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    event.target.value = '';
     if (file) onChange(file);
   };
 

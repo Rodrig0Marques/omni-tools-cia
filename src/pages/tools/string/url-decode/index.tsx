@@ -57,7 +57,11 @@ export default function DecodeString({
         />
       }
       resultComponent={
-        <ToolTextResult title={t('urlDecode.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('urlDecode.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       toolInfo={{
         title: t('urlDecode.toolInfo.title', { title }),

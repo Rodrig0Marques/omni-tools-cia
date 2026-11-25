@@ -78,7 +78,13 @@ export default function Rotate({ title }: ToolComponentProps) {
       inputComponent={
         <ToolTextInput title={'Input list'} value={input} onChange={setInput} />
       }
-      resultComponent={<ToolTextResult title={'Rotated list'} value={result} />}
+      resultComponent={
+        <ToolTextResult
+          title={'Rotated list'}
+          value={result}
+          onClear={() => setResult('')}
+        />
+      }
       initialValues={initialValues}
       presetFields={[
         'splitOperatorType',

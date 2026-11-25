@@ -75,6 +75,7 @@ export default function AudioConverter({ title }: ToolComponentProps) {
       resultComponent={
         <ToolFileResult
           value={result}
+          onClear={() => setResult(null)}
           title={t('audioConverter.outputTitle')}
           loading={loading}
         />

@@ -92,7 +92,12 @@ export default function JsonToXml({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title="Output XML" value={result} extension={'xml'} />
+        <ToolTextResult
+          title="Output XML"
+          value={result}
+          onClear={() => setResult('')}
+          extension={'xml'}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

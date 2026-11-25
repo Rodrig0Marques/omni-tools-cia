@@ -152,6 +152,7 @@ export default function RotatePdf({
         <ToolFileResult
           title={t('rotatePdf.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension={'pdf'}
           loading={isProcessing}
           loadingText={t('rotatePdf.rotatingPages')}

@@ -76,7 +76,11 @@ export default function Base64({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('base64.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('base64.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={getGroups}

@@ -463,7 +463,11 @@ export default function QRCodeGenerator({ title }: ToolComponentProps) {
       validationSchema={validationSchema}
       compute={debouncedCompute}
       resultComponent={
-        <ToolFileResult title={t('qrCode.resultOutput')} value={result} />
+        <ToolFileResult
+          title={t('qrCode.resultOutput')}
+          value={result}
+          onClear={() => setResult(null)}
+        />
       }
       toolInfo={{
         title: t('qrCode.title'),

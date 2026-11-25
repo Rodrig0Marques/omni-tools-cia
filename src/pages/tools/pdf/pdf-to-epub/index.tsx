@@ -44,6 +44,7 @@ export default function PdfToEpub({ title }: ToolComponentProps) {
         <ToolFileResult
           title={'EPUB Output'}
           value={result}
+          onClear={() => setResult(null)}
           extension={'epub'}
           loading={isProcessing}
           loadingText={'Converting PDF to EPUB...'}

@@ -133,6 +133,7 @@ export default function TrimVideo({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('trim.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension={'mp4'}
         />
       }

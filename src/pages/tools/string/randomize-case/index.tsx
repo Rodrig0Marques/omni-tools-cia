@@ -58,7 +58,11 @@ export default function RandomizeCase({ title }: ToolComponentProps) {
       setInput={setInput}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
       resultComponent={
-        <ToolTextResult title={'Randomized text'} value={result} />
+        <ToolTextResult
+          title={'Randomized text'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       exampleCards={exampleCards}
     />

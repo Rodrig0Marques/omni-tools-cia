@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import ToolContent from '@components/ToolContent';
 import ToolPdfInput from '@components/input/ToolPdfInput';
 import { ToolComponentProps } from '@tools/defineTool';
@@ -7,7 +7,6 @@ import ToolMultiFileResult from '@components/result/ToolMultiFileResult';
 
 type ImagePreview = {
   blob: Blob;
-  url: string;
   filename: string;
 };
 
@@ -16,6 +15,13 @@ export default function PdfToPng({ title }: ToolComponentProps) {
   const [images, setImages] = useState<ImagePreview[]>([]);
   const [zipBlob, setZipBlob] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const outputFiles = useMemo(
+    () =>
+      images.map(
+        (img) => new File([img.blob], img.filename, { type: 'image/png' })
+      ),
+    [images]
+  );
 
   const compute = async (_: {}, file: File | null) => {
     if (!file) return;
@@ -51,9 +57,11 @@ export default function PdfToPng({ title }: ToolComponentProps) {
       resultComponent={
         <ToolMultiFileResult
           title="Converted PNG Pages"
-          value={images.map((img) => {
-            return new File([img.blob], img.filename, { type: 'image/png' });
-          })}
+          value={outputFiles}
+          onClear={() => {
+            setImages([]);
+            setZipBlob(null);
+          }}
           zipFile={zipBlob}
           loading={loading}
           loadingText="Converting PDF pages"

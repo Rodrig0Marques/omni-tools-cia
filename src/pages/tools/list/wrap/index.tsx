@@ -180,7 +180,11 @@ export default function Wrap({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('wrap.resultTitle')} value={result} />
+        <ToolTextResult
+          title={t('wrap.resultTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       initialValues={initialValues}
       getGroups={getGroups}

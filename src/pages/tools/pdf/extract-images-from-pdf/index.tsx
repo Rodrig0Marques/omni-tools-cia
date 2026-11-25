@@ -55,6 +55,10 @@ export default function PdfToEpub({ title }: ToolComponentProps) {
           <ToolMultiFileResult
             title={t('extractImagesFromPdf.resultTitle')}
             value={result}
+            onClear={() => {
+              setResult([]);
+              setZipFile(null);
+            }}
             zipFile={zipFile}
             loading={isProcessing}
           />
@@ -62,6 +66,10 @@ export default function PdfToEpub({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('extractImagesFromPdf.resultTitle')}
             value={result[0] ?? null}
+            onClear={() => {
+              setResult([]);
+              setZipFile(null);
+            }}
             extension={'png'}
             loading={isProcessing}
           />

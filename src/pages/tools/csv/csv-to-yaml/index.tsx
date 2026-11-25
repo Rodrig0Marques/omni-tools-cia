@@ -194,7 +194,13 @@ export default function CsvToYaml({
       inputComponent={
         <ToolTextInput title={'Input CSV'} value={input} onChange={setInput} />
       }
-      resultComponent={<ToolTextResult title={'Output YAML'} value={result} />}
+      resultComponent={
+        <ToolTextResult
+          title={'Output YAML'}
+          value={result}
+          onClear={() => setResult('')}
+        />
+      }
       initialValues={initialValues}
       exampleCards={exampleCards}
       getGroups={getGroups}

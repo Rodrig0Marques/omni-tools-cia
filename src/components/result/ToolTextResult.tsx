@@ -7,18 +7,21 @@ import { replaceSpecialCharacters } from '@utils/string';
 import mime from 'mime';
 import { globalInputHeight } from '../../config/uiConfig';
 import { useTranslation } from 'react-i18next';
+import { downloadBlob } from '@utils/download';
 
 export default function ToolTextResult({
   title = 'Result',
   value,
   extension = 'txt',
   keepSpecialCharacters,
+  onClear,
   loading
 }: {
   title?: string;
   value: string;
   extension?: string;
   keepSpecialCharacters?: boolean;
+  onClear?: () => void;
   loading?: boolean;
 }) {
   const { t } = useTranslation();
@@ -39,14 +42,7 @@ export default function ToolTextResult({
     const blob = new Blob([value], {
       type: mimeType
     });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    downloadBlob(blob, filename);
   };
   return (
     <Box>
@@ -79,10 +75,15 @@ export default function ToolTextResult({
             }
           }}
           rows={10}
-          inputProps={{ 'data-testid': 'text-result' }}
+          inputProps={{ 'data-testid': 'text-result', readOnly: true }}
         />
       )}
-      <ResultFooter handleCopy={handleCopy} handleDownload={handleDownload} />
+      <ResultFooter
+        handleCopy={handleCopy}
+        handleDownload={handleDownload}
+        handleClear={onClear}
+        disabled={!value || loading}
+      />
     </Box>
   );
 }

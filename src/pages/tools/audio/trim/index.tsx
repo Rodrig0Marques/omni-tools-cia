@@ -120,6 +120,7 @@ export default function Trim({ title, longDescription }: ToolComponentProps) {
           <ToolFileResult
             title={t('trim.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension={result ? result.name.split('.').pop() : undefined}
           />
         )

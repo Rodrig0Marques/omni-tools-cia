@@ -171,7 +171,13 @@ export default function Truncate({ title }: ToolComponentProps) {
       inputComponent={
         <ToolTextInput title="Input List" value={input} onChange={setInput} />
       }
-      resultComponent={<ToolTextResult title="Truncated List" value={result} />}
+      resultComponent={
+        <ToolTextResult
+          title="Truncated List"
+          value={result}
+          onClear={() => setResult('')}
+        />
+      }
       initialValues={initialValues}
       getGroups={getGroups}
       validationSchema={validationSchema}

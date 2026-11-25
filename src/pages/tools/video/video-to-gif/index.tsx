@@ -220,6 +220,7 @@ export default function VideoToGif({
           <ToolFileResult
             title="Converted to Gif"
             value={result}
+            onClear={() => setResult(null)}
             extension="gif"
           />
         )

@@ -109,6 +109,7 @@ export default function ChangeSpeed({ title }: ToolComponentProps) {
         <ToolFileResult
           title={'Output GIF with new speed'}
           value={result}
+          onClear={() => setResult(null)}
           extension={'gif'}
         />
       }

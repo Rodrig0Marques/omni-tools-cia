@@ -148,6 +148,7 @@ export default function SortJson({
         <ToolTextResult
           title={t('sortJson.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
           extension={'json'}
         />
       }

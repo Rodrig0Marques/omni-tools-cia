@@ -169,6 +169,7 @@ export default function CompressVideo({ title }: ToolComponentProps) {
         <ToolFileResult
           title={t('compress.resultTitle')}
           value={result}
+          onClear={() => setResult(null)}
           extension={'mp4'}
           loading={loading}
           loadingText={t('compress.loadingText')}

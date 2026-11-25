@@ -124,7 +124,11 @@ export default function ByteConverter({ title }: ToolComponentProps) {
         />
       }
       resultComponent={
-        <ToolTextResult title={t('byteConverter.outputTitle')} value={result} />
+        <ToolTextResult
+          title={t('byteConverter.outputTitle')}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       getGroups={({ values, updateField }) => [
         {

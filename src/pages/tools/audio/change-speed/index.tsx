@@ -112,6 +112,7 @@ export default function ChangeSpeed({
           <ToolFileResult
             title={t('changeSpeed.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension={result ? result.name.split('.').pop() : undefined}
           />
         )

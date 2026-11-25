@@ -71,6 +71,7 @@ export default function MinifyJson({ title }: ToolComponentProps) {
         <ToolTextResult
           title={t('minify.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
           extension={'json'}
         />
       }

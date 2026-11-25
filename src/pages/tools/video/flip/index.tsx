@@ -101,6 +101,7 @@ export default function FlipVideo({ title }: ToolComponentProps) {
           <ToolFileResult
             title={t('flip.resultTitle')}
             value={result}
+            onClear={() => setResult(null)}
             extension={'mp4'}
           />
         )

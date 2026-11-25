@@ -118,7 +118,11 @@ export default function Palindrome({ title }: ToolComponentProps) {
       setInput={setInput}
       inputComponent={<ToolTextInput value={input} onChange={setInput} />}
       resultComponent={
-        <ToolTextResult title={'Palindrome results'} value={result} />
+        <ToolTextResult
+          title={'Palindrome results'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       exampleCards={exampleCards}
     />

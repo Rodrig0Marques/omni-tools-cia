@@ -141,6 +141,7 @@ export default function PrettifyJson({ title }: ToolComponentProps) {
         <ToolTextResult
           title={t('prettify.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
           extension={'json'}
         />
       }

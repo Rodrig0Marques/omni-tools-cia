@@ -292,6 +292,7 @@ export default function InsertCsvColumns({
         <ToolTextResult
           title={t('insertCsvColumns.resultTitle')}
           value={result}
+          onClear={() => setResult('')}
           extension={'csv'}
         />
       }

@@ -76,7 +76,11 @@ export default function EmailExtractor({ title }: ToolComponentProps) {
         <ToolTextInput title={'Input text'} value={input} onChange={setInput} />
       }
       resultComponent={
-        <ToolTextResult title={'Extracted emails'} value={result} />
+        <ToolTextResult
+          title={'Extracted emails'}
+          value={result}
+          onClear={() => setResult('')}
+        />
       }
       exampleCards={exampleCards}
     />
