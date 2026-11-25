@@ -9,6 +9,7 @@ export interface ToolCardProps {
   description: FullI18nKey;
   link: string;
   icon: IconifyIcon | string;
+  category?: string;
 }
 
 interface AllToolsProps {
@@ -19,14 +20,14 @@ interface AllToolsProps {
 export default function AllTools({ title, toolCards }: AllToolsProps) {
   const { t } = useTranslation();
   return (
-    <Box mt={4} mb={10}>
-      <Typography mb={2} fontSize={30} color={'primary'}>
+    <Box mt={4} mb={5}>
+      <Typography component="h2" mb={3} fontSize={22} fontWeight={650}>
         {title}
       </Typography>
       <Stack direction={'row'} alignItems={'center'} spacing={2}>
         <Grid container spacing={2}>
-          {toolCards.map((card, index) => (
-            <Grid item xs={12} md={6} lg={4} key={index}>
+          {toolCards.map((card) => (
+            <Grid item xs={12} sm={6} lg={4} key={card.link}>
               <ToolCard
                 //@ts-ignore
                 title={t(card.title)}
@@ -34,6 +35,7 @@ export default function AllTools({ title, toolCards }: AllToolsProps) {
                 description={t(card.description)}
                 link={card.link}
                 icon={card.icon}
+                category={card.category}
               />
             </Grid>
           ))}

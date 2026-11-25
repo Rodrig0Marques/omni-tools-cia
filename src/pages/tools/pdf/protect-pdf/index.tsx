@@ -62,6 +62,7 @@ export default function ProtectPdf({
       input={input}
       setInput={setInput}
       initialValues={initialValues}
+      presetFields={false}
       compute={compute}
       inputComponent={
         <ToolPdfInput

@@ -145,6 +145,13 @@ export default function Truncate({ title }: ToolComponentProps) {
     <ToolContent
       title={title}
       initialValues={initialValues}
+      presetFields={[
+        'truncationSide',
+        'maxLength',
+        'lineByLine',
+        'addIndicator',
+        'indicator'
+      ]}
       getGroups={getGroups}
       compute={compute}
       input={input}

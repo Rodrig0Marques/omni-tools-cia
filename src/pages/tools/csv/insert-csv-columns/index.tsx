@@ -296,6 +296,17 @@ export default function InsertCsvColumns({
         />
       }
       initialValues={initialValues}
+      presetFields={[
+        'commentCharacter',
+        'separator',
+        'quoteChar',
+        'insertingPosition',
+        'customFill',
+        'customFillValue',
+        'customPostionOptions',
+        'headerName',
+        'rowNumber'
+      ]}
       getGroups={getGroups}
       compute={compute}
       input={input}

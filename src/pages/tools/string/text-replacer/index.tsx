@@ -122,6 +122,7 @@ export default function Replacer({ title }: ToolComponentProps) {
     <ToolContent
       title={title}
       initialValues={initialValues}
+      presetFields={['searchValue', 'searchRegexp', 'replaceValue', 'mode']}
       getGroups={getGroups}
       compute={compute}
       input={input}

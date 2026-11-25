@@ -95,6 +95,7 @@ export default function Replacer({ title }: ToolComponentProps) {
     <ToolContent
       title={title}
       initialValues={initialValues}
+      presetFields={['repeatAmount', 'delimiter']}
       getGroups={getGroups}
       compute={compute}
       input={input}

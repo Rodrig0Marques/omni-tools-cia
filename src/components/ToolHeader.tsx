@@ -1,159 +1,119 @@
-import { Box, Button, Stack, styled, useTheme } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import ToolBreadcrumb from './ToolBreadcrumb';
-import { capitalizeFirstLetter } from '../utils/string';
-import Grid from '@mui/material/Grid';
-import { Icon, IconifyIcon } from '@iconify/react';
-import { categoriesColors } from '../config/uiConfig';
-import { getToolsByCategory } from '@tools/index';
 import { useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography
+} from '@mui/material';
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { getToolsByCategory } from '@tools/index';
 import { isBookmarked, toggleBookmarked } from '@utils/bookmark';
-import IconButton from '@mui/material/IconButton';
 import { useTranslation } from 'react-i18next';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { validNamespaces } from '../i18n';
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'white',
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white'
-  }
-}));
+import ToolBreadcrumb from './ToolBreadcrumb';
+import CategoryIcon from './CategoryIcon';
 
 interface ToolHeaderProps {
   title: string;
   description: string;
-  icon?: IconifyIcon | string;
   type: string;
   path: string;
 }
 
-function ToolLinks() {
-  const { t } = useTranslation();
-  const [examplesVisible, setExamplesVisible] = useState(false);
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.down('md'));
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const element = document.getElementById('examples');
-      if (element && isVisible(element)) {
-        setExamplesVisible(true);
-      }
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  const scrollToElement = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-  function isVisible(elm: HTMLElement | null) {
-    return !!elm;
-  }
-  return (
-    <Grid container spacing={2} mt={1}>
-      {isMd && (
-        <Grid item md={12} lg={6}>
-          <StyledButton
-            sx={{ backgroundColor: 'background.paper' }}
-            fullWidth
-            variant="outlined"
-            onClick={() => scrollToElement('tool')}
-          >
-            Use This Tool
-          </StyledButton>
-        </Grid>
-      )}
-      {examplesVisible && (
-        <Grid item md={12} lg={6}>
-          <StyledButton
-            fullWidth
-            variant="outlined"
-            sx={{ backgroundColor: 'background.paper' }}
-            onClick={() => scrollToElement('examples')}
-          >
-            {t('toolHeader.seeExamples')}
-          </StyledButton>
-        </Grid>
-      )}
-      {/*<Grid item md={12} lg={4}>*/}
-      {/*  <StyledButton fullWidth variant="outlined" href="#tour">*/}
-      {/*    Learn How to Use*/}
-      {/*  </StyledButton>*/}
-      {/*</Grid>*/}
-    </Grid>
-  );
-}
-
 export default function ToolHeader({
-  icon,
   title,
   description,
   type,
   path
 }: ToolHeaderProps) {
-  const theme = useTheme();
   const { t } = useTranslation();
-  const [bookmarked, setBookmarked] = useState<boolean>(isBookmarked(path));
+  const [bookmarked, setBookmarked] = useState(() => isBookmarked(path));
+  const [examplesVisible, setExamplesVisible] = useState(false);
+  const category = getToolsByCategory([], t).find((item) => item.type === type);
+  const bookmarkLabel = t(
+    bookmarked ? 'frontend.favoriteRemove' : 'frontend.favoriteAdd'
+  );
+  useEffect(() => {
+    setExamplesVisible(Boolean(document.getElementById('examples')));
+  }, []);
+
   return (
-    <Box my={4}>
+    <Box sx={{ mb: 3.5 }}>
       <ToolBreadcrumb
         items={[
-          { title: 'All tools', link: '/' },
-          {
-            title: getToolsByCategory([], t).find(
-              (category) => category.type === type
-            )!.rawTitle,
-            link: '/categories/' + type
-          },
+          { title: t('frontend.allTools'), link: '/#categories' },
+          { title: category?.rawTitle ?? type, link: '/categories/' + type },
           { title }
         ]}
       />
-      <Grid mt={1} container spacing={2}>
-        <Grid item xs={12} md={8}>
-          <Stack direction={'row'} spacing={2} alignItems={'center'}>
-            <Typography mb={2} fontSize={30} color={'primary'}>
+      <Stack
+        direction="row"
+        alignItems="flex-start"
+        spacing={{ xs: 1.5, sm: 2 }}
+        useFlexGap
+        mt={3}
+      >
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <CategoryIcon category={type} size={56} />
+        </Box>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <Typography
+              component="h1"
+              variant="h1"
+              sx={{ fontSize: { xs: 28, sm: 36 }, flex: 1 }}
+            >
               {title}
             </Typography>
-            <IconButton
-              onClick={(e) => {
-                toggleBookmarked(path);
-                setBookmarked(!bookmarked);
-              }}
-            >
-              <Icon
-                fontSize={30}
-                color={
-                  bookmarked
-                    ? theme.palette.primary.main
-                    : theme.palette.grey[500]
-                }
-                icon={bookmarked ? 'mdi:bookmark' : 'mdi:bookmark-plus-outline'}
-              />
-            </IconButton>
+            <Tooltip title={bookmarkLabel}>
+              <IconButton
+                aria-label={bookmarkLabel}
+                aria-pressed={bookmarked}
+                onClick={() => {
+                  toggleBookmarked(path);
+                  setBookmarked(!bookmarked);
+                }}
+                sx={{
+                  border: 1,
+                  borderColor: 'divider',
+                  borderRadius: 2,
+                  flexShrink: 0,
+                  bgcolor: 'background.paper'
+                }}
+              >
+                {bookmarked ? (
+                  <BookmarkOutlinedIcon fontSize="small" color="primary" />
+                ) : (
+                  <BookmarkBorderOutlinedIcon fontSize="small" />
+                )}
+              </IconButton>
+            </Tooltip>
           </Stack>
-          <Typography fontSize={20}>{description}</Typography>
-          <ToolLinks />
-        </Grid>
-
-        {icon && (
-          <Grid item xs={12} md={4}>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Icon
-                icon={icon}
-                fontSize={'250'}
-                color={
-                  categoriesColors[
-                    Math.floor(Math.random() * categoriesColors.length)
-                  ]
-                }
-              />
-            </Box>
-          </Grid>
-        )}
-      </Grid>
+          <Typography
+            color="text.secondary"
+            sx={{ mt: 1.5, fontSize: 14, maxWidth: 900 }}
+          >
+            {description}
+          </Typography>
+          {examplesVisible && (
+            <Button
+              size="small"
+              startIcon={<ArrowDownwardIcon sx={{ fontSize: 15 }} />}
+              onClick={() =>
+                document
+                  .getElementById('examples')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+              sx={{ mt: 1, px: 0, color: 'text.secondary', fontSize: 12 }}
+            >
+              {t('toolHeader.seeExamples')}
+            </Button>
+          )}
+        </Box>
+      </Stack>
     </Box>
   );
 }

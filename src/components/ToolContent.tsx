@@ -10,6 +10,7 @@ import ToolExamples, {
 } from '@components/examples/ToolExamples';
 import { ToolComponentProps } from '@tools/defineTool';
 import { CustomSnackBarContext } from '../contexts/CustomSnackBarContext';
+import type { PresetFields } from '@utils/toolPresets';
 
 const FormikListenerComponent = <T,>({
   input,
@@ -61,6 +62,8 @@ interface ToolContentProps<Options, Input> extends ToolComponentProps {
   validationSchema?: any;
   onValuesChange?: (values: Options) => void;
   verticalGroups?: boolean;
+  /** Limit saved settings to reusable options when form values also contain input data. */
+  presetFields?: PresetFields<Options>;
 }
 
 export default function ToolContent<T extends FormikValues, I>({
@@ -77,7 +80,8 @@ export default function ToolContent<T extends FormikValues, I>({
   validationSchema,
   renderCustomInput,
   onValuesChange,
-  verticalGroups
+  verticalGroups,
+  presetFields
 }: ToolContentProps<T, I>) {
   return (
     <Box>
@@ -102,7 +106,11 @@ export default function ToolContent<T extends FormikValues, I>({
                 input={input}
                 onValuesChange={onValuesChange}
               />
-              <ToolOptions getGroups={getGroups} vertical={verticalGroups} />
+              <ToolOptions
+                getGroups={getGroups}
+                vertical={verticalGroups}
+                presetFields={presetFields}
+              />
 
               {toolInfo && toolInfo.title && toolInfo.description && (
                 <ToolInfo

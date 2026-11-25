@@ -3,6 +3,7 @@ import { lazy } from 'react';
 
 const Home = lazy(() => import('../pages/home'));
 const ToolsByCategory = lazy(() => import('../pages/tools-by-category'));
+const NotFound = lazy(() => import('../pages/not-found'));
 
 const routes: RouteObject[] = [
   {
@@ -14,8 +15,12 @@ const routes: RouteObject[] = [
     element: <ToolsByCategory />
   },
   {
+    path: '/404',
+    element: <NotFound />
+  },
+  {
     path: '*',
-    element: <Navigate to="404" />
+    element: <Navigate to="/404" replace />
   }
 ];
 

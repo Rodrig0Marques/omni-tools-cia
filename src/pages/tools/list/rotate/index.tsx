@@ -80,6 +80,13 @@ export default function Rotate({ title }: ToolComponentProps) {
       }
       resultComponent={<ToolTextResult title={'Rotated list'} value={result} />}
       initialValues={initialValues}
+      presetFields={[
+        'splitOperatorType',
+        'splitSeparator',
+        'joinSeparator',
+        'right',
+        'step'
+      ]}
       getGroups={({ values, updateField }) => [
         {
           title: 'Item split mode',

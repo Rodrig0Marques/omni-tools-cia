@@ -152,6 +152,7 @@ export default function TimeBetweenDates() {
         ) : null
       }
       initialValues={initialValues}
+      presetFields={['startTimezone', 'endTimezone']}
       validationSchema={validationSchema}
       exampleCards={exampleCards}
       toolInfo={{

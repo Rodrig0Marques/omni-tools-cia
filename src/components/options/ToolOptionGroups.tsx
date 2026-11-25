@@ -18,7 +18,7 @@ export default function ToolOptionGroups({
     <Grid container spacing={2}>
       {groups.map((group) => (
         <Grid item xs={12} md={vertical ? 12 : 4} key={group.title}>
-          <Typography mb={1} fontSize={22}>
+          <Typography component="h3" mb={2} fontSize={14} fontWeight={650}>
             {group.title}
           </Typography>
           {group.component}

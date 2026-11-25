@@ -1,36 +1,39 @@
-import React from 'react';
-import { Breadcrumbs, Typography, useTheme } from '@mui/material';
+import { Breadcrumbs, Typography } from '@mui/material';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Link } from 'react-router-dom';
 
 interface BreadcrumbItem {
   title: string;
-  link?: string; // link is optional for the last item
+  link?: string;
 }
 
-interface BreadcrumbComponentProps {
-  items: BreadcrumbItem[];
-}
-
-const ToolBreadcrumb: React.FC<BreadcrumbComponentProps> = ({ items }) => {
-  const theme = useTheme();
+export default function ToolBreadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <Breadcrumbs>
-      {items.map((item, index) => {
-        if (index === items.length - 1 || !item.link) {
-          return (
-            <Typography color="textPrimary" key={index}>
-              {item.title}
-            </Typography>
-          );
-        }
-        return (
-          <Link color={theme.palette.primary.main} to={item.link} key={index}>
+    <Breadcrumbs
+      separator={
+        <NavigateNextIcon sx={{ fontSize: 14, color: 'text.disabled' }} />
+      }
+      sx={{
+        fontSize: 12,
+        '& a:hover': { color: 'text.primary', textDecoration: 'underline' }
+      }}
+    >
+      {items.map((item, index) =>
+        index === items.length - 1 || !item.link ? (
+          <Typography
+            fontSize={12}
+            color="text.secondary"
+            key={item.title}
+            aria-current="page"
+          >
+            {item.title}
+          </Typography>
+        ) : (
+          <Link to={item.link} key={item.title}>
             {item.title}
           </Link>
-        );
-      })}
+        )
+      )}
     </Breadcrumbs>
   );
-};
-
-export default ToolBreadcrumb;
+}

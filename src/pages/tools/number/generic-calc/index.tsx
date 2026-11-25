@@ -238,6 +238,7 @@ export default async function makeTool(
         title={title}
         inputComponent={null}
         initialValues={initialValues}
+        presetFields={['outputVariable']}
         toolInfo={{
           title: t(calcData.i18n.name),
           description: calcData.i18n.longDescription

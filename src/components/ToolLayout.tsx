@@ -1,22 +1,17 @@
-import { Box } from '@mui/material';
-import React, { ReactNode } from 'react';
+import { Container, Divider } from '@mui/material';
+import type { ReactNode } from 'react';
 import { Helmet } from 'react-helmet';
 import ToolHeader from './ToolHeader';
-import Separator from './Separator';
 import AllTools from './allTools/AllTools';
 import { getToolsByCategory } from '@tools/index';
-import {
-  capitalizeFirstLetter,
-  getI18nNamespaceFromToolCategory
-} from '../utils/string';
-import { IconifyIcon } from '@iconify/react';
+import { getI18nNamespaceFromToolCategory } from '../utils/string';
+import type { IconifyIcon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
-import { ToolCategory } from '@tools/defineTool';
-import { FullI18nKey } from '../i18n';
+import type { ToolCategory } from '@tools/defineTool';
+import type { FullI18nKey } from '../i18n';
 
 export default function ToolLayout({
   children,
-  icon,
   i18n,
   type,
   fullPath
@@ -25,7 +20,7 @@ export default function ToolLayout({
   type: ToolCategory;
   fullPath: string;
   children: ReactNode;
-  i18n?: {
+  i18n: {
     name: FullI18nKey;
     description: FullI18nKey;
     shortDescription: FullI18nKey;
@@ -35,56 +30,41 @@ export default function ToolLayout({
     'translation',
     getI18nNamespaceFromToolCategory(type)
   ]);
-
-  // Use i18n keys if available, otherwise fall back to provided strings
-  //@ts-ignore
-  const toolTitle: string = t(i18n.name);
-  //@ts-ignore
-  const toolDescription: string = t(i18n.description);
-
+  const toolTitle = t(i18n.name);
+  const toolDescription = t(i18n.description);
   const otherCategoryTools =
     getToolsByCategory([], t)
       .find((category) => category.type === type)
-      ?.tools.filter((tool) => t(tool.name) !== toolTitle)
+      ?.tools.filter((tool) => tool.path !== fullPath)
       .map((tool) => ({
         title: tool.name,
         description: tool.shortDescription,
         link: '/' + tool.path,
-        icon: tool.icon
+        icon: tool.icon,
+        category: tool.type
       })) ?? [];
 
   return (
-    <Box
-      width={'100%'}
-      display={'flex'}
-      flexDirection={'column'}
-      alignItems={'center'}
-      sx={{ backgroundColor: 'background.default' }}
+    <Container
+      component="main"
+      maxWidth={false}
+      sx={{ maxWidth: 1328, px: { xs: 2, sm: 3 }, py: { xs: 3, sm: 4 } }}
     >
       <Helmet>
-        <title>{`${toolTitle} - OmniTools`}</title>
+        <title>{toolTitle + ' — ConquestHub'}</title>
       </Helmet>
-      <Box width={'85%'}>
-        <ToolHeader
-          title={toolTitle}
-          description={toolDescription}
-          icon={icon}
-          type={type}
-          path={fullPath}
-        />
-        {children}
-        <Separator backgroundColor="#5581b5" margin="50px" />
-        <AllTools
-          title={t('translation:toolLayout.allToolsTitle', '', {
-            type: capitalizeFirstLetter(
-              getToolsByCategory([], t).find(
-                (category) => category.type === type
-              )!.title
-            )
-          })}
-          toolCards={otherCategoryTools}
-        />
-      </Box>
-    </Box>
+      <ToolHeader
+        title={toolTitle}
+        description={toolDescription}
+        type={type}
+        path={fullPath}
+      />
+      {children}
+      <Divider sx={{ my: { xs: 4, md: 6 } }} />
+      <AllTools
+        title={t('translation:frontend.relatedTools')}
+        toolCards={otherCategoryTools}
+      />
+    </Container>
   );
 }

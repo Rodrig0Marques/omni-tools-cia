@@ -248,6 +248,21 @@
   "toolOptions": {
     "title": "Tool options"
   },
+  "toolPresets": {
+    "savedConfigurations": "Saved configurations",
+    "select": "Select a configuration",
+    "empty": "No saved configurations",
+    "apply": "Apply",
+    "saveConfiguration": "Save configuration",
+    "restoreDefaults": "Restore defaults",
+    "delete": "Delete configuration",
+    "localOnly": "Saved only in this browser.",
+    "name": "Configuration name",
+    "overwriteHint": "Using an existing name updates that configuration.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "storageError": "Could not access saved configurations. Check your browser's storage settings or available space and try again."
+  },
   "toolTextInput": {
     "copied": "Text copied",
     "copyFailed": "Failed to copy: {{error}}",
@@ -263,5 +278,52 @@
   "userTypes": {
     "developers": "Developers",
     "generalUsers": "General users"
+  },
+  "frontend": {
+    "heroEyebrow": "A little less effort. A lot more done.",
+    "heroTitle": "Your everyday tasks,",
+    "heroAccent": "made simpler.",
+    "heroDescription": "Convert, edit and organize images, PDFs, text and data. Find the right tool and get straight to work.",
+    "toolCount": "{{count}} tools",
+    "toolCount_one": "{{count}} tool",
+    "toolCount_other": "{{count}} tools",
+    "noInstallation": "Ready in your browser",
+    "shortcutHint": "Tip: Ctrl + K to find a tool",
+    "quickAccess": "A good place to start",
+    "featuredLabel": "Useful tools, one click away.",
+    "exploreCategories": "Explore all categories",
+    "allTools": "All tools",
+    "favorites": "Favorites",
+    "categories": "Categories",
+    "catalogTitle": "Find your next tool",
+    "catalogDescription": "Everything organized so you can focus on what matters.",
+    "search": "Find a tool",
+    "searchTitle": "Search tools",
+    "closeSearch": "Close search",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "navigation": "Main navigation",
+    "language": "Language",
+    "themeLabel": "Theme: {{mode}}",
+    "themeModes": {
+      "light": "light",
+      "dark": "dark",
+      "system": "system"
+    },
+    "favoriteAdd": "Add to favorites",
+    "favoriteRemove": "Remove from favorites",
+    "noFavorites": "Your shortcuts will live here",
+    "noFavoritesDescription": "Bookmark a tool to keep it close. Use the audience filters to find the tools you need.",
+    "noResults": "No tools found",
+    "noResultsDescription": "Try another search or reset the audience filter.",
+    "backHome": "Back to all tools",
+    "relatedTools": "More tools to explore",
+    "searchCategory": "Search this category",
+    "explore": "Explore tools",
+    "footer": "A simpler way to get things done.",
+    "everyone": "Everyone",
+    "filterAudience": "Filter tools by audience",
+    "resetFilters": "Reset filters",
+    "useTool": "Use this tool"
   }
 }

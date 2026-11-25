@@ -1,290 +1,208 @@
-import {
-  Autocomplete,
-  Box,
-  darken,
-  lighten,
-  Stack,
-  styled,
-  TextField,
-  useTheme
-} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import SearchIcon from '@mui/icons-material/Search';
-import Grid from '@mui/material/Grid';
-import { useState } from 'react';
-import { DefinedTool } from '@tools/defineTool';
-import { filterTools, tools } from '@tools/index';
-import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import { getToolCategoryTitle } from '@utils/string';
+import { Box, Card, Chip, Divider, Stack, Typography } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FullI18nKey, validNamespaces } from '../i18n';
-import {
-  getBookmarkedToolPaths,
-  isBookmarked,
-  toggleBookmarked
-} from '@utils/bookmark';
-import IconButton from '@mui/material/IconButton';
-import { useUserTypeFilter } from '../providers/UserTypeFilterProvider';
+import { tools } from '@tools/index';
+import type { DefinedTool } from '@tools/defineTool';
+import { validNamespaces } from '../i18n';
+import ToolSearch from './ToolSearch';
+import CategoryIcon from './CategoryIcon';
 
-const GroupHeader = styled('div')(({ theme }) => ({
-  position: 'sticky',
-  top: '-8px',
-  padding: '4px 10px',
-  color: theme.palette.primary.main,
-  backgroundColor: lighten(theme.palette.primary.light, 0.85),
-  ...theme.applyStyles('dark', {
-    backgroundColor: darken(theme.palette.primary.main, 0.8)
-  })
-}));
-
-const GroupItems = styled('ul')({
-  padding: 0
-});
-
-type ToolInfo = {
-  label: FullI18nKey;
-  url: string;
-};
+const featuredTools = ['pdf/merge-pdf', 'image-generic/resize', 'json/prettify']
+  .map((path) => tools.find((tool) => tool.path === path))
+  .filter((tool): tool is DefinedTool => Boolean(tool));
 
 export default function Hero() {
   const { t } = useTranslation(validNamespaces);
-  const [inputValue, setInputValue] = useState<string>('');
-  const theme = useTheme();
-  const { selectedUserTypes } = useUserTypeFilter();
-  const [filteredTools, setFilteredTools] = useState<DefinedTool[]>(tools);
-  const [bookmarkedToolPaths, setBookmarkedToolPaths] = useState<string[]>(
-    getBookmarkedToolPaths()
-  );
-  const navigate = useNavigate();
-
-  const exampleTools: ToolInfo[] = [
-    {
-      label: 'translation:hero.examples.createTransparentImage',
-      url: '/image-generic/create-transparent'
-    },
-    {
-      label: 'translation:hero.examples.prettifyJson',
-      url: '/json/prettify'
-    },
-    {
-      label: 'translation:hero.examples.changeGifSpeed',
-      url: '/gif/change-speed'
-    },
-    {
-      label: 'translation:hero.examples.sortList',
-      url: '/list/sort'
-    },
-    {
-      label: 'translation:hero.examples.compressPng',
-      url: '/png/compress-png'
-    },
-    {
-      label: 'translation:hero.examples.splitText',
-      url: '/string/split'
-    },
-    {
-      label: 'translation:hero.examples.splitPdf',
-      url: '/pdf/split-pdf'
-    },
-    {
-      label: 'translation:hero.examples.trimVideo',
-      url: '/video/trim'
-    },
-    {
-      label: 'translation:hero.examples.calculateNumberSum',
-      url: '/number/sum'
-    }
-  ];
-
-  const handleInputChange = (
-    _event: React.ChangeEvent<{}>,
-    newInputValue: string
-  ) => {
-    setInputValue(newInputValue);
-    setFilteredTools(filterTools(tools, newInputValue, selectedUserTypes, t));
-  };
-
-  const toolsMap = new Map<string, ToolInfo>();
-  for (const tool of filteredTools) {
-    toolsMap.set(tool.path, {
-      label: tool.name,
-      url: '/' + tool.path
-    });
-  }
-
-  const displayedTools =
-    bookmarkedToolPaths.length > 0
-      ? bookmarkedToolPaths.flatMap((path) => {
-          const tool = toolsMap.get(path);
-          if (tool === undefined) {
-            return [];
-          }
-          return [tool];
-        })
-      : exampleTools;
-
   return (
-    <Box width={{ xs: '90%', md: '80%', lg: '60%' }}>
-      <Stack mb={1} direction={'row'} spacing={1} justifyContent={'center'}>
-        <Typography sx={{ textAlign: 'center' }} fontSize={{ xs: 25, md: 30 }}>
-          {t('translation:hero.title')}{' '}
-          <Typography
-            fontSize={{ xs: 25, md: 30 }}
-            display={'inline'}
-            color={'primary'}
-          >
-            {t('translation:hero.brand')}
-          </Typography>
-        </Typography>
-      </Stack>
-      <Typography
-        sx={{ textAlign: 'center' }}
-        fontSize={{ xs: 15, md: 20 }}
-        mb={2}
-      >
-        {t('translation:hero.description')}
-      </Typography>
-
-      <Autocomplete
-        sx={{ mb: 2 }}
-        autoHighlight
-        options={filteredTools}
-        noOptionsText={t('translation:hero.search.noResult')}
-        // Disable default MUI filtering since we already apply custom filterTools
-        filterOptions={(options) => options}
-        groupBy={(option) => option.type}
-        renderGroup={(params) => {
-          return (
-            <li key={params.key}>
-              <GroupHeader>{getToolCategoryTitle(params.group, t)}</GroupHeader>
-              <GroupItems>{params.children}</GroupItems>
-            </li>
-          );
-        }}
-        inputValue={inputValue}
-        getOptionLabel={(option) => t(option.name)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            fullWidth
-            placeholder={t('translation:hero.search.placeholder')}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: <SearchIcon />,
-              sx: {
-                borderRadius: 4,
-                backgroundColor: 'background.paper'
-              }
-            }}
-            onChange={(event) => handleInputChange(event, event.target.value)}
-          />
-        )}
-        renderOption={(props, option) => (
+    <Box
+      component="section"
+      aria-labelledby="home-heading"
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: '1.4fr 1fr' },
+        alignItems: 'center',
+        gap: { xs: 3, md: 9 },
+        py: { xs: 4, md: 8 }
+      }}
+    >
+      <Box>
+        <Stack
+          direction="row"
+          spacing={1.5}
+          useFlexGap
+          alignItems="center"
+          sx={{ mb: 2.5, flexWrap: 'wrap', rowGap: 1 }}
+        >
           <Box
-            component="li"
-            {...props}
-            onClick={() => navigate('/' + option.path)}
+            sx={{
+              width: 7,
+              height: 7,
+              borderRadius: '50%',
+              bgcolor: '#C7A333'
+            }}
+          />
+          <Typography
+            sx={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'text.secondary'
+            }}
           >
-            <Stack
-              direction={'row'}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-              width={'100%'}
-            >
-              <Stack direction={'row'} spacing={2} alignItems={'center'}>
-                <Icon fontSize={20} icon={option.icon} />
-                <Box>
-                  <Typography fontWeight={'bold'}>{t(option.name)}</Typography>
-                  <Typography fontSize={12}>
-                    {t(option.shortDescription)}
-                  </Typography>
-                </Box>
-              </Stack>
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleBookmarked(option.path);
-                  setBookmarkedToolPaths(getBookmarkedToolPaths());
-                }}
-              >
-                <Icon
-                  fontSize={20}
-                  color={
-                    isBookmarked(option.path)
-                      ? theme.palette.primary.main
-                      : theme.palette.grey[500]
-                  }
-                  icon={
-                    isBookmarked(option.path)
-                      ? 'mdi:bookmark'
-                      : 'mdi:bookmark-plus-outline'
-                  }
-                />
-              </IconButton>
-            </Stack>
+            {t('translation:frontend.heroEyebrow')}
+          </Typography>
+          <Chip
+            label={t('translation:frontend.toolCount', { count: tools.length })}
+            size="small"
+            sx={{
+              height: 24,
+              fontSize: 11,
+              bgcolor: 'background.paper',
+              border: 1,
+              borderColor: 'divider',
+              display: { xs: 'none', sm: 'inline-flex' }
+            }}
+          />
+        </Stack>
+        <Typography
+          component="h1"
+          variant="h1"
+          id="home-heading"
+          sx={{ fontSize: { xs: 39, sm: 52, lg: 62 }, mb: 2.5 }}
+        >
+          {t('translation:frontend.heroTitle')}
+          <br />
+          <Box
+            component="span"
+            sx={{
+              position: 'relative',
+              whiteSpace: 'nowrap',
+              backgroundImage:
+                'linear-gradient(transparent 80%, #EFCB5845 80%)',
+              pb: 0.25
+            }}
+          >
+            {t('translation:frontend.heroAccent')}
           </Box>
-        )}
-        onChange={(event, newValue) => {
-          if (newValue) {
-            navigate('/' + newValue.path);
-          }
-        }}
-      />
-      <Grid container spacing={2} mt={2}>
-        {displayedTools.map((tool) => (
-          <Grid
-            onClick={() =>
-              navigate(tool.url.startsWith('/') ? tool.url : `/${tool.url}`)
-            }
-            item
-            xs={12}
-            md={6}
-            lg={4}
-            key={tool.label}
+        </Typography>
+        <Typography
+          color="text.secondary"
+          sx={{ maxWidth: 550, fontSize: { xs: 15, md: 16 }, mb: 3.5 }}
+        >
+          {t('translation:frontend.heroDescription')}
+        </Typography>
+        <Box sx={{ maxWidth: 600 }}>
+          <ToolSearch />
+        </Box>
+        <Stack
+          direction="row"
+          spacing={2.5}
+          mt={1.75}
+          sx={{ color: 'text.secondary', flexWrap: 'wrap', rowGap: 1 }}
+        >
+          <Stack direction="row" spacing={0.75} alignItems="center">
+            <CheckCircleOutlineIcon sx={{ fontSize: 15, color: '#34856C' }} />
+            <Typography variant="caption">
+              {t('translation:frontend.noInstallation')}
+            </Typography>
+          </Stack>
+          <Typography
+            variant="caption"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
+            {t('translation:frontend.shortcutHint')}
+          </Typography>
+        </Stack>
+      </Box>
+      <Card
+        sx={{
+          p: { xs: 2, sm: 3 },
+          borderRadius: 3,
+          boxShadow: '0 8px 32px #11182704'
+        }}
+      >
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          mb={0.75}
+        >
+          <Typography fontSize={16} fontWeight={700}>
+            {t('translation:frontend.quickAccess')}
+          </Typography>
+          <Box
+            sx={{
+              bgcolor: '#F2CC6025',
+              borderRadius: 1.5,
+              p: 0.75,
+              color: 'secondary.main',
+              display: 'flex'
+            }}
+          >
+            <BoltOutlinedIcon fontSize="small" />
+          </Box>
+        </Stack>
+        <Typography variant="body2" color="text.secondary" mb={2}>
+          {t('translation:frontend.featuredLabel')}
+        </Typography>
+        <Stack spacing={0.75}>
+          {featuredTools.map((tool) => (
             <Box
+              key={tool.path}
+              component={Link}
+              to={'/' + tool.path}
               sx={{
                 display: 'flex',
-                justifyContent: 'center',
                 alignItems: 'center',
-                borderWidth: 1,
-                padding: 1,
-                borderRadius: 3,
-                borderColor: theme.palette.mode === 'dark' ? '#363b41' : 'grey',
-                borderStyle: 'solid',
-                backgroundColor: 'background.paper',
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'background.hover'
-                },
-                height: '100%'
+                gap: 1.5,
+                p: 1.25,
+                borderRadius: 2,
+                transition: 'background-color 160ms',
+                '&:hover': { bgcolor: 'action.hover' }
               }}
             >
-              <Stack direction={'row'} spacing={1} alignItems={'center'}>
-                <Typography textAlign={'center'}>{t(tool.label)}</Typography>
-                {bookmarkedToolPaths.length > 0 && (
-                  <IconButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const path = tool.url.substring(1);
-                      toggleBookmarked(path);
-                      setBookmarkedToolPaths(getBookmarkedToolPaths());
-                    }}
-                    size={'small'}
-                  >
-                    <Icon
-                      icon={'mdi:close'}
-                      color={theme.palette.grey[500]}
-                      fontSize={15}
-                    />
-                  </IconButton>
-                )}
-              </Stack>
+              <CategoryIcon category={tool.type} />
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <Typography fontSize={14} fontWeight={650}>
+                  {t(tool.name)}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  noWrap
+                  component="p"
+                >
+                  {t(tool.shortDescription)}
+                </Typography>
+              </Box>
+              <ArrowForwardIcon
+                sx={{ fontSize: 16, color: 'text.secondary' }}
+              />
             </Box>
-          </Grid>
-        ))}
-      </Grid>
+          ))}
+        </Stack>
+        <Divider sx={{ my: 2 }} />
+        <Box
+          component={Link}
+          to="/#categories"
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: 12,
+            fontWeight: 650,
+            color: 'text.secondary',
+            '&:hover': { color: 'text.primary' }
+          }}
+        >
+          {t('translation:frontend.exploreCategories')}
+          <ArrowForwardIcon sx={{ fontSize: 15 }} />
+        </Box>
+      </Card>
     </Box>
   );
 }

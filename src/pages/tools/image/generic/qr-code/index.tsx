@@ -452,6 +452,13 @@ export default function QRCodeGenerator({ title }: ToolComponentProps) {
     <ToolContent
       title={title}
       initialValues={initialValues}
+      presetFields={[
+        'qrCodeType',
+        'size',
+        'bgColor',
+        'fgColor',
+        'wifiEncryption'
+      ]}
       getGroups={getGroups}
       validationSchema={validationSchema}
       compute={debouncedCompute}

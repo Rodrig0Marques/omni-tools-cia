@@ -1,3 +1,5 @@
+import JSON5 from 'json5';
+
 export const stringifyJson = (
   input: string,
   indentationType: 'tab' | 'space',
@@ -6,13 +8,15 @@ export const stringifyJson = (
 ): string => {
   let parsedInput;
   try {
-    // Safely evaluate the input string as JavaScript
-    parsedInput = eval('(' + input + ')');
-  } catch (e) {
+    parsedInput = JSON5.parse(input);
+  } catch {
     throw new Error('Invalid JavaScript object/array');
   }
 
-  const indent = indentationType === 'tab' ? '\t' : ' '.repeat(spacesCount);
+  const indent =
+    indentationType === 'tab'
+      ? '\t'
+      : Math.min(10, Math.max(0, Math.trunc(spacesCount) || 0));
   let result = JSON.stringify(parsedInput, null, indent);
 
   if (escapeHtml) {

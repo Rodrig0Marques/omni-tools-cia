@@ -236,6 +236,21 @@
   "toolOptions": {
     "title": "Opções de ferramentas"
   },
+  "toolPresets": {
+    "savedConfigurations": "Configurações salvas",
+    "select": "Selecione uma configuração",
+    "empty": "Nenhuma configuração salva",
+    "apply": "Aplicar",
+    "saveConfiguration": "Salvar configuração",
+    "restoreDefaults": "Restaurar padrão",
+    "delete": "Excluir configuração",
+    "localOnly": "Salvas apenas neste navegador.",
+    "name": "Nome da configuração",
+    "overwriteHint": "Usar um nome existente atualiza essa configuração.",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "storageError": "Não foi possível acessar as configurações salvas. Verifique as permissões ou o espaço disponível no navegador e tente novamente."
+  },
   "toolTextInput": {
     "copied": "Texto copiado",
     "copyFailed": "Falha ao copiar: {{error}}",
@@ -251,5 +266,52 @@
   "userTypes": {
     "developers": "Desenvolvedores",
     "generalUsers": "Usuários em geral"
+  },
+  "frontend": {
+    "heroEyebrow": "Menos esforço. Mais possibilidades.",
+    "heroTitle": "Seu dia a dia,",
+    "heroAccent": "mais simples.",
+    "heroDescription": "Converta, edite e organize imagens, PDFs, textos e dados. Encontre a ferramenta certa e vá direto ao que precisa.",
+    "toolCount": "{{count}} ferramentas",
+    "toolCount_one": "{{count}} ferramenta",
+    "toolCount_other": "{{count}} ferramentas",
+    "noInstallation": "Prontas no seu navegador",
+    "shortcutHint": "Dica: Ctrl + K para buscar uma ferramenta",
+    "quickAccess": "Um bom lugar para começar",
+    "featuredLabel": "Ferramentas úteis a um clique de distância.",
+    "exploreCategories": "Explorar todas as categorias",
+    "allTools": "Todas as ferramentas",
+    "favorites": "Favoritos",
+    "categories": "Categorias",
+    "catalogTitle": "Encontre sua próxima ferramenta",
+    "catalogDescription": "Tudo organizado para você focar no que importa.",
+    "search": "Buscar ferramenta",
+    "searchTitle": "Buscar ferramentas",
+    "closeSearch": "Fechar busca",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "navigation": "Navegação principal",
+    "language": "Idioma",
+    "themeLabel": "Tema: {{mode}}",
+    "themeModes": {
+      "light": "claro",
+      "dark": "escuro",
+      "system": "sistema"
+    },
+    "favoriteAdd": "Adicionar aos favoritos",
+    "favoriteRemove": "Remover dos favoritos",
+    "noFavorites": "Seus atalhos vão ficar aqui",
+    "noFavoritesDescription": "Favorite uma ferramenta para tê-la sempre por perto. Use os filtros de perfil para encontrar o que precisa.",
+    "noResults": "Nenhuma ferramenta encontrada",
+    "noResultsDescription": "Tente outra busca ou remova o filtro de perfil.",
+    "backHome": "Voltar para todas as ferramentas",
+    "relatedTools": "Mais ferramentas para explorar",
+    "searchCategory": "Buscar nesta categoria",
+    "explore": "Explorar ferramentas",
+    "footer": "Um jeito mais simples de fazer acontecer.",
+    "everyone": "Todos",
+    "filterAudience": "Filtrar ferramentas por perfil",
+    "resetFilters": "Limpar filtros",
+    "useTool": "Usar ferramenta"
   }
 }

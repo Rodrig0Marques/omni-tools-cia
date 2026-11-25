@@ -88,6 +88,16 @@ We strive to offer a variety of tools, including:
 
 Stay tuned as we continue to expand and improve our collection!
 
+### Finding tools
+
+Find tools from any page with **Ctrl+K** (or **Cmd+K** on macOS). Use the bookmark button on a tool to add it to the **Favorites** tab on the home page. The interface supports light, dark, and system themes, plus a compact navigation menu on mobile.
+
+### Saved tool configurations
+
+Use **Save configuration** in a tool's options to name and save its settings. Select a saved configuration and click **Apply** to reuse it, or **Restore defaults** to reset the options while keeping the current input. Saving with the same name updates the configuration; the delete button removes it.
+
+Configurations stay in the current browser and are separate for each tool. Uploaded files, source text, QR code contents, and passwords are not saved.
+
 ## Self-host/Run
 
 ### Docker
@@ -135,6 +145,8 @@ npm run script:create:tool my-tool-name folder1/folder2 # npm run script:create:
 ```
 
 Use `folder1\folder2` on Windows.
+
+Tools using `ToolContent` get saved configurations for their scalar options automatically. If form values include source data, provide an explicit `presetFields` list containing only reusable settings. Use `presetFields={false}` to disable the controls. Applying configurations and restoring defaults preserve fields outside this list. Keep file objects and nested input data outside saved options.
 
 ### Run tests
 

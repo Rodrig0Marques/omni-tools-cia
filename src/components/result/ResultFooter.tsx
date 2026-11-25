@@ -20,8 +20,10 @@ export default function ResultFooter({
 }) {
   const { t } = useTranslation();
   return (
-    <Stack mt={1} direction={'row'} spacing={2}>
+    <Stack mt={2} direction={'row'} spacing={1} useFlexGap flexWrap="wrap">
       <Button
+        size="small"
+        variant="contained"
         disabled={disabled}
         onClick={handleDownload}
         startIcon={<DownloadIcon />}
@@ -30,6 +32,8 @@ export default function ResultFooter({
       </Button>
       {!hideCopy && (
         <Button
+          size="small"
+          variant="outlined"
           disabled={disabled}
           onClick={handleCopy}
           startIcon={<ContentPasteIcon />}
